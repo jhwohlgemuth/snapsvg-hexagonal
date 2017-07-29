@@ -84,7 +84,7 @@
         "coverage": "npm test -- --coverage",
         "server:start": "nohup http-server -p 1337 &",
         "server:stop": "kill $(echo `ps -ef | grep -m 1 http-server` | awk -F \" \" '{print $2}')",
-        "bundle": "browserify -e ./lib/snapsvg-hexagonal.js ./lib/snapsvg-hexagonal.js --standalone hexagonal -o ./dist/snapsvg-hexagonal.js",
+        "bundle": "browserify -e ./lib/index.js ./lib/index.js --standalone hexagonal -o ./dist/snapsvg-hexagonal.js",
         "transpile": "babel ./dist/snapsvg-hexagonal.js --out-file ./dist/snapsvg-hexagonal.js",
         "browsersync": "browser-sync start --server ./test/demo --serveStatic . --files test/demo --open ./test/demo/index.html --port 1337"
     },
