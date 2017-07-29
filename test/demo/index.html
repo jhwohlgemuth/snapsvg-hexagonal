@@ -1,0 +1,80 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Snap.svg Hexagonal Plugin Demo</title>
+    <style>
+        body {
+            overflow: hidden;
+        }
+    </style>
+    <script type="text/javascript" src="justice.min.js"></script>
+    <script type="text/javascript" src="../../node_modules/snapsvg/dist/snap.svg-min.js"></script>
+    <script type="text/javascript" src="../../dist/snapsvg-hexagonal.js"></script>
+    <script>
+        'use strict';
+        //
+        // un-comment to view page metrics (fps, etc...)
+        //
+        // Justice.init();
+        let paper;
+        let menu;
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log(Date.now());
+            paper = Snap('svg');
+            paper.attr({
+                height: '100%',
+                width: '100%'
+            });
+            var options = {
+                sideLength: 30,
+                width: 210
+            };
+            var items = [
+                {title: 'CHOICE ONE'},
+                {title: 'CHOICE TWO'},
+                {title: 'CHOICE THREE'},
+                {title: 'CHOICE FOUR'},
+                {title: 'CHOICE FIVE'},
+                {title: 'CHOICE SIX', subtitle: 'this button is special'}
+            ];
+            items.forEach(function(item, index) {
+                if (index !== 0) {
+                    item.submenu = JSON.parse(JSON.stringify(items));
+                }
+            });
+            menu = paper.hexamenu(items, options);
+            var h1 = paper.hexagon(30, 529, 85);
+            h1.attr({fill: '#333'});
+            h1.click(function() {
+                menu.toggle();
+            });
+            var h2 = paper.hexagon(30, 557, 133);
+            h2.attr({fill: '#333'});
+            h2.click(function() {
+                menu.reset();
+            });
+            menu.on('click:child', function(e) {
+                var colors = ['yellow', 'green', 'red', 'gray', 'purple', '#e6e6e6'];
+                var color = colors[e.detail.target.index];
+                document.getElementsByTagName('BODY')[0].style.background = color;
+            });
+            menu.on('click:0', function(e) {
+                document.getElementsByTagName('BODY')[0].style.background = '#ffa500';
+            });
+            menu.on('click:2:child', function(e) {
+                 console.log(e.detail.target.title.attr('text'));
+            });
+            menu.on('click:2:0', function() {
+                console.log('NOW YOU DONE IT');
+            });
+        });
+    </script>
+</head>
+<body>
+    <svg></svg>
+    <script id="__bs_script__">//<![CDATA[
+        'use strict';
+        document.write('<script async src="http://HOST:1337/browser-sync/browser-sync-client.js?v=2.18.12"><\/script>'.replace('HOST', location.hostname));
+    //]]></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{
+    "name": "snapsvg-hexagonal",
+    "version": "0.0.1",
+    "homepage": "https://jhwohlgemuth.github.io/snapsvg-hexagonal",
+    "author": "Jason Wohlgemuth",
+    "license": "MIT",
+    "description": "Snap.svg plugin for creating hexagonal UI elements",
+    "main": "./dist/snapsvg-hexagonal.js",
+    "keywords": [
+        "snapsvg",
+        "plugin",
+        "ui",
+        "svg",
+        "browser"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jhwohlgemuth/snapsvg-hexagonal.git"
+    },
+    "engines": {
+        "node": "*"
+    },
+    "babel": {
+        "presets": [
+            "env",
+            "babili"
+        ]
+    },
+    "jest": {
+        "testMatch": [
+            "**/test**/*.js"
+        ]
+    },
+    "devDependencies": {
+        "babel-cli": "^6.24.1",
+        "babel-preset-babili": "^0.1.4",
+        "babel-preset-env": "^1.6.0",
+        "bluebird": "^3.5.0",
+        "browserify": "^14.4.0",
+        "chalk": "^2.0.1",
+        "coveralls": "^2.13.1",
+        "eslint": "^4.2.0",
+        "eslint-config-omaha-prime-grade": "^4.0.0",
+        "eslint-plugin-compat": "^1.0.4",
+        "eslint-plugin-html": "^3.1.1",
+        "http-server": "^0.10.0",
+        "jest": "^20.0.4",
+        "jest-image-snapshot": "^0.1.0",
+        "jsdoc": "^3.5.3",
+        "minami": "^1.2.3",
+        "nightmare": "^2.10.0",
+        "watch": "^1.0.2"
+    },
+    "scripts": {
+        "dev": "stmux --mouse --title 'Voxelcss dev task' [ [ \"npm run lint:watch\" : [ \"npm run build:watch\" .. \"npm run design\" ] ] .. \"npm run test:watch -- --coverage\" ]",
+        "design": "npm run build && npm run browsersync",
+        "docs": "jsdoc ./lib/*.js --destination ./docs --readme ./README.md --template ./node_modules/minami",
+        "lint": "eslint -c ./.eslintrc.js ./lib/*.js --fix",
+        "lint:watch": "watch 'npm run lint' ./lib",
+        "lint:tests": "eslint -c ./.eslintrc.js ./test/*.js ./test/demo/index.html",
+        "test": "jest .*.test.js",
+        "pretest:visual": "npm run capture",
+        "test:visual": "jest visual-regression",
+        "test:watch": "npm test -- --watch",
+        "precapture": "npm run server:start",
+        "capture": "node ./test/lib/captureScreenshots",
+        "precapture:reset": "rm -frd ./test/__image_snapshots__",
+        "capture:reset": "npm run capture",
+        "capture:delete": "rm ./test/lib/screenshots/*.png",
+        "postcapture": "npm run server:stop",
+        "test:ci": "npm run coverage && npm run test:visual && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+        "test:travis": "npm run test:ci",
+        "build": "npm run bundle",
+        "build:watch": "watch 'npm run build && browser-sync reload --port 1337' ./lib ./assets",
+        "postbuild": "npm run transpile",
+        "preversion": "npm test",
+        "postversion": "git push && git push --tags",
+        "delete:remote": "git push origin --delete gh-pages && git fetch --all --prune",
+        "delete:docs": "git rm -r --cached docs",
+        "predelete": "npm run delete:remote",
+        "delete": "npm run delete:docs",
+        "predeploy": "npm run docs && git add docs -f && git commit -m 'Documentation deployment'",
+        "deploy": "git subtree push --prefix docs origin gh-pages",
+        "coverage": "npm test -- --coverage",
+        "server:start": "nohup http-server -p 1337 &",
+        "server:stop": "kill $(echo `ps -ef | grep -m 1 http-server` | awk -F \" \" '{print $2}')",
+        "bundle": "browserify -e ./lib/snapsvg-hexagonal.js ./lib/snapsvg-hexagonal.js --standalone hexagonal -o ./dist/snapsvg-hexagonal.js",
+        "transpile": "babel ./dist/snapsvg-hexagonal.js --out-file ./dist/snapsvg-hexagonal.js",
+        "browsersync": "browser-sync start --server ./test/demo --serveStatic . --files test/demo --open ./test/demo/index.html --port 1337"
+    },
+    "dependencies": {
+        "snapsvg": "^0.5.1"
+    }
+}
