@@ -88,7 +88,7 @@
         "transpile": "babel ./dist/snapsvg-hexagonal.js --out-file ./dist/snapsvg-hexagonal.js",
         "browsersync": "browser-sync start --server ./test/demo --serveStatic . --files test/demo --open ./test/demo/index.html --port 1337"
     },
-    "dependencies": {
+    "peerDependencies": {
         "snapsvg": "^0.5.1"
     }
 }
