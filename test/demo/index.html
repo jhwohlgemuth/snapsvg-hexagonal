@@ -11,6 +11,7 @@
     <script type="text/javascript" src="../../node_modules/snapsvg/dist/snap.svg-min.js"></script>
     <script type="text/javascript" src="../../dist/snapsvg-hexagonal.js"></script>
     <script>
+        /* global Snap */
         'use strict';
         //
         // un-comment to view page metrics (fps, etc...)
@@ -18,7 +19,7 @@
         // Justice.init();
         let paper;
         let menu;
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {/* eslint-disable new-cap, no-console, no-magic-numbers */
             console.log(Date.now());
             paper = Snap('svg');
             paper.attr({
@@ -58,11 +59,11 @@
                 var color = colors[e.detail.target.index];
                 document.getElementsByTagName('BODY')[0].style.background = color;
             });
-            menu.on('click:0', e => {
+            menu.on('click:0', () => {
                 document.getElementsByTagName('BODY')[0].style.background = '#ffa500';
             });
             menu.on('click:2:child', e => {
-                 console.log(e.detail.target.title.attr('text'));
+                console.log(e.detail.target.title.attr('text'));
             });
             menu.on('click:2:0', () => {
                 console.log('NOW YOU DONE IT');
@@ -75,6 +76,6 @@
     <script id="__bs_script__">//<![CDATA[
         'use strict';
         document.write('<script async src="http://HOST:1337/browser-sync/browser-sync-client.js?v=2.18.12"><\/script>'.replace('HOST', location.hostname));
-    //]]></script>
+//]]></script>
 </body>
 </html>
