@@ -1,9 +1,19 @@
 'use strict';
 
-const {isEmpty, isTouch, range, zip} = require('../lib/common');
+const {debounce, isEmpty, isTouch, range, zip} = require('../lib/common');
+
+jest.useFakeTimers();
 
 describe('Common utilities', function() {
-    it('can determine if a collection is empty', function() {
+    it('can debounce function calls', () => {
+        let wait = 100;
+        let fn = jest.fn();
+        let debounced = debounce(fn, wait, true);
+        range(3).forEach(() => debounced());
+        expect(fn).toHaveBeenCalledTimes(1);
+        jest.runTimersToTime(wait + 1);
+    });
+    it('can determine if a collection is empty', () => {
         expect(isEmpty([])).toBeTruthy();
         [// non-array objects are default true
             '',
@@ -22,7 +32,7 @@ describe('Common utilities', function() {
             [undefined]
         ].forEach(val => expect(isEmpty(val)).not.toBeTruthy());
     });
-    it('can determine if device is touch', function() {
+    it('can determine if device is touch', () => {
         expect(isTouch()).toBeFalsy();
     });
     it('can create ranges', () => {
