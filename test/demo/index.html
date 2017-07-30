@@ -61,6 +61,7 @@
                 document.getElementsByTagName('BODY')[0].style.background = color;
             });
             menu.on('click:0', () => {
+                console.log(Date.now());
                 document.getElementsByTagName('BODY')[0].style.background = '#ffa500';
             });
             menu.on('click:2:child', e => {
