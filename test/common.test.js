@@ -15,7 +15,7 @@ describe('Common utilities', function() {
             {}
         ].forEach(val => expect(isEmpty(val)).toBeTruthy());
         [// non-empty arrays are false
-            [1, 2, 3, 4],
+            [1, 2, 3],
             [''],
             [0],
             [null],
