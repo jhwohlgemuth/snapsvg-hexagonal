@@ -37,7 +37,7 @@
                 {title: 'CHOICE FIVE'},
                 {title: 'CHOICE SIX', subtitle: 'this button is special'}
             ];
-            items.forEach(function(item, index) {
+            items.forEach((item, index) => {
                 if (index !== 0) {
                     item.submenu = JSON.parse(JSON.stringify(items));
                 }
@@ -53,18 +53,18 @@
             h2.click(function() {
                 menu.reset();
             });
-            menu.on('click:child', function(e) {
+            menu.on('click:child', e => {
                 var colors = ['yellow', 'green', 'red', 'gray', 'purple', '#e6e6e6'];
                 var color = colors[e.detail.target.index];
                 document.getElementsByTagName('BODY')[0].style.background = color;
             });
-            menu.on('click:0', function(e) {
+            menu.on('click:0', e => {
                 document.getElementsByTagName('BODY')[0].style.background = '#ffa500';
             });
-            menu.on('click:2:child', function(e) {
+            menu.on('click:2:child', e => {
                  console.log(e.detail.target.title.attr('text'));
             });
-            menu.on('click:2:0', function() {
+            menu.on('click:2:0', () => {
                 console.log('NOW YOU DONE IT');
             });
         });

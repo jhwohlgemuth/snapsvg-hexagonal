@@ -17,28 +17,28 @@ function createFilePath(name, ext) {
     filePath += ext;
     return filePath;
 }
-function screenshotPlugin(name, fn, element) {
-    fn = fn || (() => {});
+function screenshotPlugin(name) {
     return function(nightmare) {
-        nightmare
-            .evaluate(fn)
-            .wait(500)
-            .screenshot(createFilePath(name));
+        nightmare.screenshot(createFilePath(name));
     };
 }
 function captureScreenshots(url, name) {
     let toggle = () => menu.toggle();
     let show = false;
-    let openDevTools = {detach: true};
+    let waitTimeout = 500;
     let SCREEN_WIDTH = 700;
     let SCREEN_HEIGHT = 700;
     let i = 1;
-    let browser = nightmare({show, openDevTools})
+    let browser = nightmare({show, waitTimeout})
         .goto(url)
         .viewport(SCREEN_WIDTH, SCREEN_HEIGHT)
         .use(screenshotPlugin(`${name}_initial`));
     return browser
-        .use(screenshotPlugin(`${name}-${i++}`, toggle))
-        .use(screenshotPlugin(`${name}-${i++}`, toggle))
+        .evaluate(toggle)
+        .wait(300)
+        .use(screenshotPlugin(`${name}-${i++}`))
+        .evaluate(toggle)
+        .wait(300)
+        .use(screenshotPlugin(`${name}-${i++}`))
         .end();
 }
