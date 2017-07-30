@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hexagon can be created with correct points 1`] = `
+Array [
+  Array [
+    "hexagon",
+  ],
+]
+`;
+
+exports[`Hexagon can be created with correct points 2`] = `
+Array [
+  Array [
+    Array [
+      Array [
+        10,
+        59.99999999999999,
+      ],
+      Array [
+        96.60254037844388,
+        10,
+      ],
+      Array [
+        183.20508075688775,
+        59.99999999999999,
+      ],
+      Array [
+        183.20508075688775,
+        160,
+      ],
+      Array [
+        96.60254037844388,
+        210,
+      ],
+      Array [
+        10,
+        160,
+      ],
+    ],
+  ],
+]
+`;
