@@ -11,7 +11,7 @@
     <script type="text/javascript" src="../../node_modules/snapsvg/dist/snap.svg-min.js"></script>
     <script type="text/javascript" src="../../dist/snapsvg-hexagonal.js"></script>
     <script>
-        /* global Snap */
+        /* global Snap hexagonal */
         'use strict';
         //
         // un-comment to view page metrics (fps, etc...)
@@ -21,6 +21,7 @@
         let menu;
         document.addEventListener('DOMContentLoaded', () => {/* eslint-disable new-cap, no-console, no-magic-numbers */
             console.log(Date.now());
+            Snap.plugin(hexagonal);
             paper = Snap('svg');
             paper.attr({
                 height: '100%',

@@ -6,7 +6,7 @@
 [![Build Status](https://travis-ci.org/jhwohlgemuth/snapsvg-hexagonal.svg?branch=master)](https://travis-ci.org/jhwohlgemuth/snapsvg-hexagonal)
 [![Build status](https://ci.appveyor.com/api/projects/status/j2scpcedrevwejvb?svg=true)](https://ci.appveyor.com/project/jhwohlgemuth/snapsvg-hexagonal)
 [![Coverage Status](https://coveralls.io/repos/github/jhwohlgemuth/snapsvg-hexagonal/badge.svg?branch=master)](https://coveralls.io/github/jhwohlgemuth/snapsvg-hexagonal?branch=master)
-[![bitHound Overall Score](https://www.bithound.io/github/jhwohlgemuth/snapsvg-hexagonal/badges/score.svg)](https://www.bithound.io/github/jhwohlgemuth/snapsvg-hexagonal) 
+[![bitHound Overall Score](https://www.bithound.io/github/jhwohlgemuth/snapsvg-hexagonal/badges/score.svg)](https://www.bithound.io/github/jhwohlgemuth/snapsvg-hexagonal)
 [![Known Vulnerabilities](https://snyk.io/test/github/jhwohlgemuth/snapsvg-hexagonal/badge.svg)](https://snyk.io/test/github/jhwohlgemuth/snapsvg-hexagonal)
 
 > [Snap.svg](http://snapsvg.io/) plugin for creating hexagonal UI elements.
@@ -52,6 +52,10 @@ define(function(require) {
     <body>
         <script src="path/to/node_modules/snapsvg/snapsvg.js"></script>
         <script src="path/to/node_modules/snapsvg-hexagonal/dist/snapsvg-hexagonal.js"></script>
+        <script type="text/javascript">
+            Snap.plugin('hexagonal');
+            /* code code code */
+        </script>
     </body>
 </html>
 ```
