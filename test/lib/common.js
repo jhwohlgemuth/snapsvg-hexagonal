@@ -1,9 +1,11 @@
-/* global scene */
+/* global menu */
 'use strict';
 
 const {join} = require('path');
 const nightmare = require('nightmare');
 // nightmare.Promise = require('bluebird');
+
+const enoughTime = 300;// ms
 
 module.exports = {
     createFilePath,
@@ -35,10 +37,10 @@ function captureScreenshots(url, name) {
         .use(screenshotPlugin(`${name}_initial`));
     return browser
         .evaluate(toggle)
-        .wait(300)
+        .wait(enoughTime)
         .use(screenshotPlugin(`${name}-${i++}`))
         .evaluate(toggle)
-        .wait(300)
+        .wait(enoughTime)
         .use(screenshotPlugin(`${name}-${i++}`))
         .end();
 }
