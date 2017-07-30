@@ -1,7 +1,12 @@
 
 <p align="left">
-    <a href="https://github.com/jhwohlgemuth/voxelcss"><img width="300px" alt="voxelcss" src="https://raw.githubusercontent.com/jhwohlgemuth/voxelcss/master/media/voxelcss_with_letters.png"/></a>
+    <a href="https://github.com/jhwohlgemuth/snapsvg-hexagonal"><img width="300px" alt="snapsvg-hexagonal" src="https://raw.githubusercontent.com/jhwohlgemuth/snapsvg-hexagonal/master/media/hexagonal.png"/></a>
 </p>
+
+[![Build Status](https://travis-ci.org/jhwohlgemuth/snapsvg-hexagonal.svg?branch=master)](https://travis-ci.org/jhwohlgemuth/snapsvg-hexagonal)
+[![Build status](https://ci.appveyor.com/api/projects/status/j2scpcedrevwejvb?svg=true)](https://ci.appveyor.com/project/jhwohlgemuth/snapsvg-hexagonal)
+[![Coverage Status](https://coveralls.io/repos/github/jhwohlgemuth/snapsvg-hexagonal/badge.svg?branch=master)](https://coveralls.io/github/jhwohlgemuth/snapsvg-hexagonal?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/jhwohlgemuth/snapsvg-hexagonal/badge.svg)](https://snyk.io/test/github/jhwohlgemuth/snapsvg-hexagonal)
 
 > [Snap.svg](http://snapsvg.io/) plugin for creating hexagonal UI elements.
 
@@ -11,8 +16,6 @@ Installation
 ```bash
 npm install snapsvg snapsvg-hexagonal
 ```
-
-> **Note:** The associated styles are [bundled with the JavaScript](https://github.com/jhwohlgemuth/voxelcss/blob/master/lib/index.js#L3) and [added into the head section at runtime](https://github.com/cheton/browserify-css#autoinject).
 
 Usage
 -----
@@ -32,8 +35,24 @@ requirejs.config({
 // main.js
 define(function(require) {
     'use strict';
-    const hexagonal = require('snapsvg-hexagonal');
+
+    const Snap = require('snapsvg');
+    const hexagonal = require('hexagonal');
+    Snap.plugin(hexagonal);
 });
+```
+
+**Browser global**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>...</head>
+    <body>
+        <script src="path/to/node_modules/snapsvg/snapsvg.js"></script>
+        <script src="path/to/node_modules/snapsvg-hexagonal/dist/snapsvg-hexagonal.js"></script>
+    </body>
+</html>
 ```
 
 Examples
@@ -58,4 +77,4 @@ Credits
 
 License
 -------
-> Under construction
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fjhwohlgemuth%2Fsnapsvg-hexagonal.svg?type=large)](https://app.fossa.io/projects/git%2Bhttps%3A%2F%2Fgithub.com%2Fjhwohlgemuth%2Fsnapsvg-hexagonal?ref=badge_large)
