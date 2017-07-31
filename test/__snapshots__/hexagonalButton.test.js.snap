@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hexagonal Button can be created with correct points 1`] = `
+ {
+  "bar": [Circular],
+  "blur": [Function],
+  "disable": [Function],
+  "disableHoverAnimation": [Function],
+  "enable": [Function],
+  "enableHoverAnimation": [Function],
+  "focus": [Function],
+  "height": 15,
+  "hoverAnimationDisabled": false,
+  "subTitle": [Circular],
+  "title": [Circular],
+  "width": 100,
+}
+`;
+
+exports[`Hexagonal Button can be created with correct points 2`] = `
+Array [
+  Array [
+    "menu-item-title",
+  ],
+  Array [
+    "menu-item-subtitle",
+  ],
+  Array [
+    "hexagonalButton menu-item",
+  ],
+]
+`;
+
+exports[`Hexagonal Button can be created with correct points 3`] = `
+Array [
+  Array [
+    Object {
+      "fill": "#FFF",
+      "fontSize": 5,
+      "textAnchor": "middle",
+      "x": "+=55",
+      "y": "+=8.75",
+    },
+  ],
+  Array [
+    Object {
+      "fill": "#FFF",
+      "fontSize": 3.5,
+      "opacity": 0,
+      "textAnchor": "middle",
+      "x": 8.660254037844387,
+      "y": "+=11.25",
+    },
+  ],
+  Array [
+    Object {
+      "fill": "#222",
+      "stroke": "#222",
+      "strokeWidth": "1px",
+    },
+  ],
+  Array [
+    Object {
+      "style": "-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:none;",
+    },
+  ],
+]
+`;
