@@ -46,7 +46,7 @@ describe('Hexagonal Menu', function() {
         let buttonWithSubtitle = menu.buttons.filter(button => (button.subtitle !== undefined));
         expect(buttonWithSubtitle[0].subtitle).toEqual(items[items.length - 1].subtitle);
     });
-    it('can toggle visibility', () => {
+    xit('can toggle visibility', () => {
         expect(menu.isVisible()).toBeFalsy();
         menu.toggle();
         jest.runTimersToTime(1000 * 1000);
