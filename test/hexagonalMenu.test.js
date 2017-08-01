@@ -49,10 +49,10 @@ describe('Hexagonal Menu', function() {
     it('can toggle visibility', () => {
         expect(menu.isVisible()).toBeFalsy();
         menu.toggle();
-        jest.runTimersToTime(1000 * 100);
+        jest.runTimersToTime(1000 * 1000);
         expect(menu.isVisible()).toBeTruthy();
         menu.toggle();
-        jest.runTimersToTime(1000 * 100);
+        jest.runTimersToTime(1000 * 1000);
     });
     it('can be reset', function() {
         menu.toggle();
