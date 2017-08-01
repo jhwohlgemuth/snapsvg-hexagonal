@@ -13,7 +13,7 @@
 
 <p align="left">
     <a href="https://github.com/jhwohlgemuth/snapsvg-hexagonal">
-<img src="https://media.giphy.com/media/3o6vY7j5XZ5b2lOWys/giphy.gif"/></a>
+<img src="./media/example.gif"/></a>
 </p>
 
 Installation
