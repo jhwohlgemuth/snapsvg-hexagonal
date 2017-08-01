@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hexagonal Menu can be created in the hidden state 1`] = `
+Object {
+  "x": -118.66025403784438,
+  "y": 4.999999999999999,
+}
+`;
+
+exports[`Hexagonal Menu can be created in the hidden state 2`] = `
+Object {
+  "x": -118.66025403784438,
+  "y": 26,
+}
+`;
+
+exports[`Hexagonal Menu can be created in the hidden state 3`] = `
+Object {
+  "x": -118.66025403784438,
+  "y": 47,
+}
+`;
+
+exports[`Hexagonal Menu can be created in the hidden state 4`] = `
+Object {
+  "x": -118.66025403784438,
+  "y": 68,
+}
+`;
+
+exports[`Hexagonal Menu can be created in the hidden state 5`] = `
+Object {
+  "x": -118.66025403784438,
+  "y": 89,
+}
+`;
+
+exports[`Hexagonal Menu can be created in the hidden state 6`] = `
+Object {
+  "x": -118.66025403784438,
+  "y": 110,
+}
+`;
+
+exports[`Hexagonal Menu can set titles and subtitles 1`] = `"CHOICE ONE"`;
+
+exports[`Hexagonal Menu can set titles and subtitles 2`] = `"CHOICE TWO"`;
+
+exports[`Hexagonal Menu can set titles and subtitles 3`] = `"CHOICE THREE"`;
+
+exports[`Hexagonal Menu can set titles and subtitles 4`] = `"CHOICE FOUR"`;
+
+exports[`Hexagonal Menu can set titles and subtitles 5`] = `"CHOICE FIVE"`;
+
+exports[`Hexagonal Menu can set titles and subtitles 6`] = `"CHOICE SIX"`;

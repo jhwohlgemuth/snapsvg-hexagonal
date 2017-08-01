@@ -1,5 +1,7 @@
 'use strict';
 
+let dispatchEvent = jest.fn();
+let node = {dispatchEvent};
 let addClass = jest.fn().mockReturnThis();
 let removeClass = jest.fn().mockReturnThis();
 let attr = jest.fn().mockReturnThis();
@@ -20,8 +22,13 @@ let mockHexagonalButton = {
     text,
     polygon
 };
+let hexagonalButton = jest.fn(function(options) {
+    return Object.assign(options, {attr, node});
+});
+let mockHexagonalMenu = {hexagonalButton, node};
 
 module.exports = {
     mockHexagon,
-    mockHexagonalButton
+    mockHexagonalButton,
+    mockHexagonalMenu
 };
