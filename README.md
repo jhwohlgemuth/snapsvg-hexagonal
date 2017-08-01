@@ -3,6 +3,7 @@
     <a href="https://github.com/jhwohlgemuth/snapsvg-hexagonal"><img width="300px" alt="snapsvg-hexagonal" src="https://raw.githubusercontent.com/jhwohlgemuth/snapsvg-hexagonal/master/media/hexagonal.png"/></a>
 </p>
 
+[![npm](https://img.shields.io/npm/v/snapsvg-hexagonal.svg)](https://www.npmjs.com/package/snapsvg-hexagonal) 
 [![Build Status](https://travis-ci.org/jhwohlgemuth/snapsvg-hexagonal.svg?branch=master)](https://travis-ci.org/jhwohlgemuth/snapsvg-hexagonal)
 [![Build status](https://ci.appveyor.com/api/projects/status/j2scpcedrevwejvb?svg=true)](https://ci.appveyor.com/project/jhwohlgemuth/snapsvg-hexagonal)
 [![Coverage Status](https://coveralls.io/repos/github/jhwohlgemuth/snapsvg-hexagonal/badge.svg?branch=master)](https://coveralls.io/github/jhwohlgemuth/snapsvg-hexagonal?branch=master)
