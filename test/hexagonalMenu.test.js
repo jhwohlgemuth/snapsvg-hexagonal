@@ -16,6 +16,11 @@ let items = [
     {title: 'CHOICE FIVE'},
     {title: 'CHOICE SIX', subtitle: 'this button is special'}
 ];
+items.forEach((item, index) => {
+    if (index !== 0) {
+        item.submenu = JSON.parse(JSON.stringify(items));
+    }
+});
 let sideLength = 10;
 let width = 100;
 let options = {sideLength, width};
@@ -46,7 +51,7 @@ describe('Hexagonal Menu', function() {
         let buttonWithSubtitle = menu.buttons.filter(button => (button.subtitle !== undefined));
         expect(buttonWithSubtitle[0].subtitle).toEqual(items[items.length - 1].subtitle);
     });
-    xit('can toggle visibility', () => {
+    it('can toggle visibility', () => {
         expect(menu.isVisible()).toBeFalsy();
         menu.toggle();
         jest.runTimersToTime(1000 * 1000);
