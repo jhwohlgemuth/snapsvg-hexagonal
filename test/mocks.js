@@ -5,6 +5,7 @@ let node = {dispatchEvent};
 let addClass = jest.fn().mockReturnThis();
 let removeClass = jest.fn().mockReturnThis();
 let attr = jest.fn().mockReturnThis();
+let enable = jest.fn().mockReturnThis();
 let group = jest.fn().mockReturnThis();
 let hover = jest.fn().mockReturnThis();
 let unhover = jest.fn().mockReturnThis();
@@ -23,7 +24,7 @@ let mockHexagonalButton = {
     polygon
 };
 let hexagonalButton = jest.fn(function(options) {
-    return Object.assign(options, {attr, node});
+    return Object.assign(options, {attr, enable, node});
 });
 let mockHexagonalMenu = {hexagonalButton, node};
 

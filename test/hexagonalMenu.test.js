@@ -63,10 +63,10 @@ describe('Hexagonal Menu', function() {
         menu.toggle();
         jest.runTimersToTime(1000 * 100);
         menu.buttons.forEach(button => {
-            expect(button.isActive).toEqual(undefined);
+            expect(button.isActive).toBeFalsy();
         });
         menu.reset();
-        jest.runTimersToTime(100);
+        jest.runTimersToTime(1000 * 100);
         menu.buttons.forEach(button => {
             expect(button.isActive).toEqual(false);
         });
