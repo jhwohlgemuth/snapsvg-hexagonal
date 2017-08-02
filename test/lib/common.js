@@ -2,6 +2,7 @@
 'use strict';
 
 const {join} = require('path');
+const {bold, green} = require('chalk');
 const nightmare = require('nightmare');
 nightmare.Promise = require('bluebird');
 
@@ -39,6 +40,7 @@ function captureScreenshots(url, name) {
         .use(screenshotPlugin(`${name}_initial`));
     return browser
         .evaluate(toggle)
+        .end()
         .wait(enoughTime)
         .use(screenshotPlugin(`${name}-${i++}`))
         .mouseover(thirdButton)
@@ -53,5 +55,7 @@ function captureScreenshots(url, name) {
         .evaluate(toggle)
         .wait(enoughTime)
         .use(screenshotPlugin(`${name}-${i++}`))
-        .end();
+        .end()
+        .then(() => console.log(bold(green('✔ ') + bold('Capture complete'))))
+        .catch(() => console.log('error'));
 }
