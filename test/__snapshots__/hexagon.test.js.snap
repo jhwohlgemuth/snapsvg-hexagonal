@@ -40,3 +40,44 @@ Array [
   ],
 ]
 `;
+
+exports[`Hexagon can be created with default x and y 1`] = `
+Array [
+  Array [
+    "hexagon",
+  ],
+]
+`;
+
+exports[`Hexagon can be created with default x and y 2`] = `
+Array [
+  Array [
+    Array [
+      Array [
+        0,
+        49.99999999999999,
+      ],
+      Array [
+        86.60254037844388,
+        0,
+      ],
+      Array [
+        173.20508075688775,
+        49.99999999999999,
+      ],
+      Array [
+        173.20508075688775,
+        150,
+      ],
+      Array [
+        86.60254037844388,
+        200,
+      ],
+      Array [
+        0,
+        150,
+      ],
+    ],
+  ],
+]
+`;
