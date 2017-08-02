@@ -3,9 +3,10 @@
 
 const {join} = require('path');
 const nightmare = require('nightmare');
-// nightmare.Promise = require('bluebird');
+nightmare.Promise = require('bluebird');
 
-const enoughTime = 300;// ms
+const enoughTime = 500;// ms
+const thirdButton = '.hexagonalButton.menu-item:nth-of-type(3)';
 
 module.exports = {
     createFilePath,
@@ -20,14 +21,15 @@ function createFilePath(name, ext) {
     return filePath;
 }
 function screenshotPlugin(name) {
-    return function(nightmare) {
+    return (nightmare) => {
         nightmare.screenshot(createFilePath(name));
     };
 }
 function captureScreenshots(url, name) {
     let toggle = () => menu.toggle();
-    let show = false;
-    let waitTimeout = 500;
+    let reset = () => menu.reset();
+    let show = true;
+    let waitTimeout = 600;
     let SCREEN_WIDTH = 700;
     let SCREEN_HEIGHT = 700;
     let i = 1;
@@ -37,6 +39,15 @@ function captureScreenshots(url, name) {
         .use(screenshotPlugin(`${name}_initial`));
     return browser
         .evaluate(toggle)
+        .wait(enoughTime)
+        .use(screenshotPlugin(`${name}-${i++}`))
+        .mouseover(thirdButton)
+        .use(screenshotPlugin(`${name}-${i++}`))
+        .wait(enoughTime)
+        .click(thirdButton)
+        .wait(enoughTime)
+        .use(screenshotPlugin(`${name}-${i++}`))
+        .click(thirdButton)
         .wait(enoughTime)
         .use(screenshotPlugin(`${name}-${i++}`))
         .evaluate(toggle)
