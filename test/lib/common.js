@@ -5,7 +5,7 @@ const {join} = require('path');
 const nightmare = require('nightmare');
 nightmare.Promise = require('bluebird');
 
-const enoughTime = 500;// ms
+const enoughTime = 400;// ms
 const thirdButton = '.hexagonalButton.menu-item:nth-of-type(3)';
 
 module.exports = {
