@@ -11,7 +11,6 @@ const thirdButton = '.hexagonalButton.menu-item:nth-of-type(3)';
 
 module.exports = {
     createFilePath,
-    screenshotPlugin,
     captureScreenshots
 };
 
@@ -20,11 +19,6 @@ function createFilePath(name, ext) {
     var filePath = join(__dirname, 'screenshots', name);
     filePath += ext;
     return filePath;
-}
-function screenshotPlugin(name) {
-    return (nightmare) => {
-        nightmare.screenshot(createFilePath(name));
-    };
 }
 function captureScreenshots(url, name) {
     let toggle = () => menu.toggle();
@@ -37,25 +31,26 @@ function captureScreenshots(url, name) {
     let browser = nightmare({show, waitTimeout})
         .goto(url)
         .viewport(SCREEN_WIDTH, SCREEN_HEIGHT)
-        .use(screenshotPlugin(`${name}_initial`));
-    return browser
+        .screenshot(createFilePath(`${name}_initial`))
         .evaluate(toggle)
-        .end()
         .wait(enoughTime)
-        .use(screenshotPlugin(`${name}-${i++}`))
+        .screenshot(createFilePath(`${name}-${i++}`))
         .mouseover(thirdButton)
-        .use(screenshotPlugin(`${name}-${i++}`))
+        .screenshot(createFilePath(`${name}-${i++}`))
         .wait(enoughTime)
         .click(thirdButton)
         .wait(enoughTime)
-        .use(screenshotPlugin(`${name}-${i++}`))
+        .screenshot(createFilePath(`${name}-${i++}`))
         .click(thirdButton)
         .wait(enoughTime)
-        .use(screenshotPlugin(`${name}-${i++}`))
+        .screenshot(createFilePath(`${name}-${i++}`))
         .evaluate(toggle)
         .wait(enoughTime)
-        .use(screenshotPlugin(`${name}-${i++}`))
+        .screenshot(createFilePath(`${name}-${i++}`))
         .end()
-        .then(() => console.log(bold(green('✔ ') + bold('Capture complete'))))
-        .catch(() => console.log('error'));
+        .then(() => {
+            console.log(bold(green('✔ ') + bold('Capture complete')));
+            return nightmare.end();
+        })
+        .catch(() => {});
 }
