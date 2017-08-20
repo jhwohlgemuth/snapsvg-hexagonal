@@ -3,11 +3,16 @@
 
 const {join} = require('path');
 const {bold, green} = require('chalk');
-const nightmare = require('nightmare');
-nightmare.Promise = require('bluebird');
+const puppeteer = require('puppeteer');
 
+const width = 640;
+const height = 480;
 const enoughTime = 400;// ms
 const thirdButton = '.hexagonalButton.menu-item:nth-of-type(3)';
+
+let getPath = name => ({path: createFilePath(name)});
+let toggle = () => menu.toggle();
+let reset = () => menu.reset();
 
 module.exports = {
     createFilePath,
@@ -20,37 +25,40 @@ function createFilePath(name, ext) {
     filePath += ext;
     return filePath;
 }
-function captureScreenshots(url, name) {
-    let toggle = () => menu.toggle();
-    let reset = () => menu.reset();
-    let show = true;
-    let waitTimeout = 600;
-    let SCREEN_WIDTH = 700;
-    let SCREEN_HEIGHT = 700;
-    let i = 1;
-    let browser = nightmare({show, waitTimeout})
-        .goto(url)
-        .viewport(SCREEN_WIDTH, SCREEN_HEIGHT)
-        .screenshot(createFilePath(`${name}_initial`))
-        .evaluate(toggle)
-        .wait(enoughTime)
-        .screenshot(createFilePath(`${name}-${i++}`))
-        .mouseover(thirdButton)
-        .screenshot(createFilePath(`${name}-${i++}`))
-        .wait(enoughTime)
-        .click(thirdButton)
-        .wait(enoughTime)
-        .screenshot(createFilePath(`${name}-${i++}`))
-        .click(thirdButton)
-        .wait(enoughTime)
-        .screenshot(createFilePath(`${name}-${i++}`))
-        .evaluate(toggle)
-        .wait(enoughTime)
-        .screenshot(createFilePath(`${name}-${i++}`))
-        .end()
-        .then(() => {
-            console.log(bold(green('✔ ') + bold('Capture complete')));
-            return nightmare.end();
-        })
-        .catch(() => {});
+function captureScreenshots(options) {
+    let {url, prefix} = options;
+    let actions = [toggle, toggle, toggle];
+    return (async () => {
+        const browser = await puppeteer.launch();
+        const page = await browser.newPage();
+        let perform = fn => page.evaluate(fn);
+        let screenshot = name => page.screenshot(getPath(name));
+        let wait = duration => page.waitFor(duration);
+        await page.goto(url);
+        await page.setViewport({width, height});
+        await screenshot(`${prefix}-initial`);
+        let i = 1;
+        for (let action of actions) {
+            await perform(action);
+            await wait(enoughTime)
+            await screenshot(`${prefix}-${i++}`);
+        }
+        await page.click(thirdButton);
+        await wait(enoughTime);
+        await screenshot(`${prefix}-${i++}`);
+        await page.click(thirdButton);
+        await wait(enoughTime);
+        await screenshot(`${prefix}-${i++}`);
+        await page.click(thirdButton);
+        await wait(enoughTime);
+        await screenshot(`${prefix}-${i++}`);
+        await perform(reset);
+        await wait(enoughTime);
+        await screenshot(`${prefix}-${i++}`);
+        await perform(toggle);
+        await wait(enoughTime);
+        await screenshot(`${prefix}-${i++}`);
+        browser.close();
+        return 'Capture Complete';
+    })();
 }
