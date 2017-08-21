@@ -43,21 +43,21 @@ function captureScreenshots(options) {
             await wait(enoughTime)
             await screenshot(`${prefix}-${i++}`);
         }
-        await page.click(thirdButton);
-        await wait(enoughTime);
-        await screenshot(`${prefix}-${i++}`);
-        await page.click(thirdButton);
-        await wait(enoughTime);
-        await screenshot(`${prefix}-${i++}`);
-        await page.click(thirdButton);
-        await wait(enoughTime);
-        await screenshot(`${prefix}-${i++}`);
-        await perform(reset);
-        await wait(enoughTime);
-        await screenshot(`${prefix}-${i++}`);
-        await perform(toggle);
-        await wait(enoughTime);
-        await screenshot(`${prefix}-${i++}`);
+        // await page.click(thirdButton);
+        // await wait(enoughTime);
+        // await screenshot(`${prefix}-${i++}`);
+        // await page.click(thirdButton);
+        // await wait(enoughTime);
+        // await screenshot(`${prefix}-${i++}`);
+        // await page.click(thirdButton);
+        // await wait(enoughTime);
+        // await screenshot(`${prefix}-${i++}`);
+        // await perform(reset);
+        // await wait(enoughTime);
+        // await screenshot(`${prefix}-${i++}`);
+        // await perform(toggle);
+        // await wait(enoughTime);
+        // await screenshot(`${prefix}-${i++}`);
         browser.close();
         return 'Capture Complete';
     })();
