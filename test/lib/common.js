@@ -7,7 +7,7 @@ const puppeteer = require('puppeteer');
 
 const width = 640;
 const height = 480;
-const enoughTime = 1000;// ms
+const enoughTime = 500;// ms
 const thirdButton = '.hexagonalButton.menu-item:nth-of-type(3)';
 
 let getPath = name => ({path: createFilePath(name)});
@@ -44,13 +44,13 @@ function captureScreenshots(options) {
             await screenshot(`${prefix}-${i++}`);
         }
         await page.click(thirdButton);
-        await wait(10 * enoughTime);
+        await wait(enoughTime);
         await screenshot(`${prefix}-${i++}`);
         await page.click(thirdButton);
-        await wait(10 * enoughTime);
+        await wait(enoughTime);
         await screenshot(`${prefix}-${i++}`);
         await page.click(thirdButton);
-        await wait(10 * enoughTime);
+        await wait(enoughTime);
         await screenshot(`${prefix}-${i++}`);
         await perform(reset);
         await wait(enoughTime);
