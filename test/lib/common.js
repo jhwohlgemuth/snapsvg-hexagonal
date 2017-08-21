@@ -7,7 +7,7 @@ const puppeteer = require('puppeteer');
 
 const width = 640;
 const height = 480;
-const enoughTime = 5000;// ms
+const enoughTime = 1000;// ms
 const thirdButton = '.hexagonalButton.menu-item:nth-of-type(3)';
 
 let getPath = name => ({path: createFilePath(name)});
@@ -27,6 +27,7 @@ function createFilePath(name, ext) {
 }
 function captureScreenshots(options) {
     let {url, prefix} = options;
+    let actions = [toggle, toggle, toggle];
     return (async () => {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
@@ -37,30 +38,26 @@ function captureScreenshots(options) {
         await page.setViewport({width, height});
         await screenshot(`${prefix}-initial`);
         let i = 1;
-        await perform(toggle);
-        await wait(enoughTime)
+        for (let action of actions) {
+            await perform(action);
+            await wait(enoughTime)
+            await screenshot(`${prefix}-${i++}`);
+        }
+        await page.click(thirdButton);
+        await wait(10 * enoughTime);
+        await screenshot(`${prefix}-${i++}`);
+        await page.click(thirdButton);
+        await wait(10 * enoughTime);
+        await screenshot(`${prefix}-${i++}`);
+        await page.click(thirdButton);
+        await wait(10 * enoughTime);
+        await screenshot(`${prefix}-${i++}`);
+        await perform(reset);
+        await wait(enoughTime);
         await screenshot(`${prefix}-${i++}`);
         await perform(toggle);
-        await wait(enoughTime)
+        await wait(enoughTime);
         await screenshot(`${prefix}-${i++}`);
-        await perform(toggle);
-        await wait(enoughTime)
-        await screenshot(`${prefix}-${i++}`);
-        // await page.click(thirdButton);
-        // await wait(enoughTime);
-        // await screenshot(`${prefix}-${i++}`);
-        // await page.click(thirdButton);
-        // await wait(enoughTime);
-        // await screenshot(`${prefix}-${i++}`);
-        // await page.click(thirdButton);
-        // await wait(enoughTime);
-        // await screenshot(`${prefix}-${i++}`);
-        // await perform(reset);
-        // await wait(enoughTime);
-        // await screenshot(`${prefix}-${i++}`);
-        // await perform(toggle);
-        // await wait(enoughTime);
-        // await screenshot(`${prefix}-${i++}`);
         browser.close();
         return 'Capture Complete';
     })();
