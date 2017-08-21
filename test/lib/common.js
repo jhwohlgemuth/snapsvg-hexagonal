@@ -43,9 +43,9 @@ function captureScreenshots(options) {
             await wait(enoughTime)
             await screenshot(`${prefix}-${i++}`);
         }
-        // await page.click(thirdButton);
-        // await wait(enoughTime);
-        // await screenshot(`${prefix}-${i++}`);
+        await page.click(thirdButton);
+        await wait(enoughTime);
+        await screenshot(`${prefix}-${i++}`);
         // await page.click(thirdButton);
         // await wait(enoughTime);
         // await screenshot(`${prefix}-${i++}`);
