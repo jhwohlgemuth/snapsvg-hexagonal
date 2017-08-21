@@ -27,7 +27,6 @@ function createFilePath(name, ext) {
 }
 function captureScreenshots(options) {
     let {url, prefix} = options;
-    let actions = [toggle, toggle, toggle];
     return (async () => {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
@@ -38,11 +37,15 @@ function captureScreenshots(options) {
         await page.setViewport({width, height});
         await screenshot(`${prefix}-initial`);
         let i = 1;
-        for (let action of actions) {
-            await perform(action);
-            await wait(enoughTime)
-            await screenshot(`${prefix}-${i++}`);
-        }
+        await perform(toggle);
+        await wait(enoughTime)
+        await screenshot(`${prefix}-${i++}`);
+        await perform(toggle);
+        await wait(enoughTime)
+        await screenshot(`${prefix}-${i++}`);
+        await perform(toggle);
+        await wait(enoughTime)
+        await screenshot(`${prefix}-${i++}`);
         await page.click(thirdButton);
         await wait(enoughTime);
         await screenshot(`${prefix}-${i++}`);
