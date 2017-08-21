@@ -12,7 +12,7 @@ let screenshotDirectory = join(__dirname, 'lib', 'screenshots');
 let hasPngExtension = name => (name.split('').slice(-1 * '.png'.length).join('') === '.png');
 
 describe('Snap.svg Hexagonal Plugin', function() {
-    it('can rotate, pan, and zoom', () => {
+    it('can toggle open, open sub-menus, and toggle closed', () => {
         return readdir(screenshotDirectory)
             .filter(hasPngExtension)
             .map(name => join(screenshotDirectory, name))
