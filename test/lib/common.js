@@ -7,7 +7,7 @@ const puppeteer = require('puppeteer');
 
 const width = 640;
 const height = 480;
-const enoughTime = 1000;// ms
+const enoughTime = 5000;// ms
 const thirdButton = '.hexagonalButton.menu-item:nth-of-type(3)';
 
 let getPath = name => ({path: createFilePath(name)});
