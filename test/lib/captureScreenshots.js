@@ -6,7 +6,7 @@ const {captureScreenshots} = require('./common');
 
 const PORT = 1337;
 let url = `http://localhost:${PORT}/test/demo/index.html`;
-let prefix = 'test';
+let prefix = 'snapshot';
 
 /* eslint-disable no-console */
 captureScreenshots({url, prefix}).then(msg => console.log(bold(green('✔ ') + bold(msg))));
