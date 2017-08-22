@@ -69,7 +69,7 @@
         "capture:reset": "npm run capture",
         "capture:delete": "rm ./test/lib/screenshots/*.png",
         "postcapture": "npm run server:stop",
-        "test:ci": "npm run coverage && npm run test:visual && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+        "test:ci": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
         "test:travis": "npm run test:ci",
         "build": "npm run bundle",
         "build:watch": "watch 'npm run build && browser-sync reload --port 1337' ./lib ./assets",
