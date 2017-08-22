@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>hexagonalButton.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#hexagon">hexagon</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#hexagonalButton">hexagonalButton</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#hexagonalMenu">hexagonalMenu</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">hexagonalButton.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+
+const {assign} = Object;
+const {ceil, cos, sin, PI} = Math;
+const {isTouch, zip} = require('./common');
+
+const NO_USER_SELECT = {style: '-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:none;'};
+/**
+ * @function hexagonalButton
+ * @description Create a hexagonally-shaped bar SVG.
+ * Used internally by [hexagonalMenu]{@link module:hexagonal~hexagonalMenu}
+ * @param {object} options Options to configure hexagonalButton
+ * @param {number} options.sideLength Length of hexagonal side in pixels
+ * @param {number} [options.x=0] x position
+ * @param {number} [options.y=0] y position
+ * @param {number} options.width Bar width (in pixels)
+ * @param {number} options.level Level of nesting
+ * @param {string} options.title Title text
+ * @param {string} options.subtitle Sub-title text
+ * @returns {function} hexagonal SVG button
+**/
+module.exports = function(options) {
+    let {sideLength, reverse, width, x, y} = options;
+    x = x || 0;
+    y = y || 0;
+    const defaultValues = {
+        fill: '#222',
+        stroke: '#222',
+        strokeWidth: '1px'
+    };
+    const hoverValues = {
+        cursor: 'pointer',
+        fill: '#FFF',
+        stroke: '#333'
+    };
+    const FONT_ADJUSTMENT_FACTOR = 4;
+    const FONT_SCALING_FACTOR = 0.7;
+    const NUMBER_OF_SIDES = 6;
+    const ADJACENT_ANGLE = PI / NUMBER_OF_SIDES;
+    let α = sideLength * sin(ADJACENT_ANGLE);
+    let β = sideLength * cos(ADJACENT_ANGLE);
+    let fontSize = sideLength / 2;
+    let height = sideLength + α;
+    let w = width - β;
+    let cX = ceil(width / 2) + fontSize;
+    let cY = (height / 2) + (fontSize / FONT_ADJUSTMENT_FACTOR);
+    let X;
+    let Y;
+    if (reverse) {
+        X = [0, β + w, β * 2 + w, β * 2 + w, β + 0, 0];
+        Y = [0, 0, α, α + sideLength, α + sideLength, 0 + sideLength];
+    } else {
+        X = [0, β + 0, β * 2 + w, β * 2 + w, β + w, 0];
+        Y = [α, 0, 0, 0 + sideLength, α + sideLength, α + sideLength];
+    }
+    let points = zip(
+        X.map(val => (val + x)),
+        Y.map(val => (val + y))
+    );
+    let {fill} = hoverValues;
+    let title = this
+        .text(x, y, options.title)
+        .addClass('menu-item-title')
+        .attr({
+            x: '+=' + cX,
+            y: '+=' + cY,
+            fill,
+            fontSize,
+            textAnchor: 'middle'
+        });
+    let subTitle = this
+        .text(x, y, options.subtitle)
+        .addClass('menu-item-subtitle')
+        .attr({
+            x: x + β,
+            y: '+=' + (cY + (fontSize / 2)),
+            fill,
+            fontSize: fontSize * FONT_SCALING_FACTOR,
+            textAnchor: 'middle',
+            opacity: 0
+        });
+    let bar = this.polygon(points).attr(defaultValues);
+    let button = assign(this.group(bar, title, subTitle), {
+        bar,
+        width,
+        height,
+        title,
+        subTitle,
+        hoverAnimationDisabled: false
+    });
+    button
+        .addClass('hexagonalButton menu-item')
+        .attr(NO_USER_SELECT);
+    if (isTouch()) {
+        button.addClass('touch');
+    }
+    var onHoverIn = () => {
+        if (!(button.hasClass('disabled') || button.hasClass('active'))) {
+            button.focus();
+        }
+        if (!button.hoverAnimationDisabled &amp;&amp; subTitle.attr('text').length > 0) {
+            let scalingFactor = 0.8;
+            title.animate({
+                fontSize: fontSize * scalingFactor,
+                y: (y + cY) - (fontSize / FONT_ADJUSTMENT_FACTOR)
+            }, 100);
+            subTitle.animate({
+                opacity: 1,
+                x: x + cX
+            }, 100);
+        }
+    };
+    var onHoverOut = () => {
+        button.blur();
+    };
+    button.enableHoverAnimation = () => {
+        button.hoverAnimationDisabled = false;
+        button.hover(onHoverIn, onHoverOut);
+        return button;
+    };
+    button.disableHoverAnimation = () => {
+        button.hoverAnimationDisabled = true;
+        button.unhover(onHoverIn, onHoverOut);
+        return button;
+    };
+    button.enable = () => {
+        let opacity = 1;
+        return button
+            .removeClass('active')
+            .removeClass('disabled')
+            .attr({opacity})
+            .enableHoverAnimation()
+            .blur();
+    };
+    button.disable = () => {
+        let opacity = 0.8;
+        let cursor = 'default';
+        ['bar', 'title', 'subTitle'].forEach(element => {
+            assign(button[element].node.style, {cursor});
+        });
+        return button
+            .addClass('disabled')
+            .attr({opacity})
+            .disableHoverAnimation();
+    };
+    button.focus = () => {
+        assign(button.bar.node.style, assign({}, defaultValues, hoverValues));
+        let cursor = 'pointer';
+        let {stroke} = hoverValues;
+        ['bar', 'title', 'subTitle'].forEach(element => {
+            assign(button[element].node.style, {cursor});
+        });
+        button.title.node.style.fill = stroke;
+        button.subTitle.node.style.fill = stroke;
+        return button;
+    };
+    button.blur = () => {
+        let opacity = 0;
+        assign(button.bar.node.style, defaultValues);
+        button.title.node.style.fill = '#FFF';
+        if (!button.hoverAnimationDisabled &amp;&amp; subTitle.attr('text').length > 0) {
+            button.title.animate({
+                fontSize,
+                y: y + cY
+            }, 100);
+            button.subTitle.animate({
+                opacity,
+                x: x + β
+            }, 100);
+        }
+        return button;
+    };
+    return button.enableHoverAnimation();
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.3</a> on Mon Aug 21 2017 19:16:31 GMT-0500 (CDT) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>
