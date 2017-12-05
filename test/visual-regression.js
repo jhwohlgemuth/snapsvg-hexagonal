@@ -18,7 +18,7 @@ describe('Snap.svg Hexagonal Plugin', function() {
             .map(name => join(screenshotDirectory, name))
             .map(path => readFile(path))
             .each(image => expect(image).toMatchImageSnapshot({
-                customDiffConfig: {threshold: 0.0001}
+                customDiffConfig: {threshold: 0.01}
             }));
     });
 });
