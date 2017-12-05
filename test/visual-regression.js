@@ -17,6 +17,8 @@ describe('Snap.svg Hexagonal Plugin', function() {
             .filter(hasPngExtension)
             .map(name => join(screenshotDirectory, name))
             .map(path => readFile(path))
-            .each(image => expect(image).toMatchImageSnapshot());
+            .each(image => expect(image).toMatchImageSnapshot({
+                customDiffConfig: {threshold: 0.0001}
+            }));
     });
 });

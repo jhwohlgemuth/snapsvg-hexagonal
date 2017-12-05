@@ -29,7 +29,7 @@ function captureScreenshots(options) {
     let {url, prefix} = options;
     let actions = [toggle, toggle, toggle];
     return (async () => {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({headless: true});
         const page = await browser.newPage();
         let perform = fn => page.evaluate(fn);
         let screenshot = name => page.screenshot(getPath(name));
@@ -43,6 +43,9 @@ function captureScreenshots(options) {
             await wait(enoughTime)
             await screenshot(`${prefix}-${i++}`);
         }
+        await page.hover(thirdButton);
+        await wait(enoughTime);
+        await screenshot(`${prefix}-${i++}`);
         await page.click(thirdButton);
         await wait(enoughTime);
         await screenshot(`${prefix}-${i++}`);
