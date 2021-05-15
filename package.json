@@ -39,7 +39,7 @@
         "browserify": "^14.4.0",
         "chalk": "^2.1.0",
         "coveralls": "^2.13.1",
-        "eslint": "^4.2.0",
+        "eslint": "4.19.1",
         "eslint-config-omaha-prime-grade": "^4.0.0",
         "eslint-plugin-compat": "^1.0.4",
         "eslint-plugin-html": "^3.1.1",
